@@ -10,3 +10,7 @@
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
+examples/results/2018-11-17_22-27-33/adolescent#001.csv
+examples/results/2018-11-17_22-27-33/adolescent#002.csv
+examples/results/2018-11-17_22-27-33/adolescent#003.csv
+examples/results/adolescent#001.csv

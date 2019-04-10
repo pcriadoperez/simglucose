@@ -71,6 +71,7 @@ class T1DSimEnv(object):
         insulin = 0.0
         BG = 0.0
         CGM = 0.0
+        HR = 100.0
 
         for _ in range(int(self.sample_time)):
             # Compute moving average as the sample measurements
@@ -95,6 +96,7 @@ class T1DSimEnv(object):
         self.risk_hist.append(risk)
         self.LBGI_hist.append(LBGI)
         self.HBGI_hist.append(HBGI)
+        self.HR_hist.append(HR)
 
         # Compute reward, and decide whether game is over
         window_size = int(60 / self.sample_time)
@@ -128,6 +130,7 @@ class T1DSimEnv(object):
         self.HBGI_hist = [HBGI]
         self.CHO_hist = []
         self.insulin_hist = []
+        self.HR_hist= []
 
     def reset(self):
         self.patient.reset()
@@ -168,5 +171,6 @@ class T1DSimEnv(object):
         df['LBGI'] = pd.Series(self.LBGI_hist)
         df['HBGI'] = pd.Series(self.HBGI_hist)
         df['Risk'] = pd.Series(self.risk_hist)
+        df['HR'] = pd.Series(self.HR_hist)
         df = df.set_index('Time')
         return df

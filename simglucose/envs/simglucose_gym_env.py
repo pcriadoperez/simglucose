@@ -66,13 +66,15 @@ class T1DSimEnv(gym.Env):
         # This gym only controls basal insulin
         act = Action(basal=action, bolus=0)
         if self.reward_fun is None:
-            return self.env.step(act)
+            Step = self.env.step(act)
+            return np.array([Step.observation.CGM]), Step.reward, Step.done, {}
         else:
-            return self.env.step(act, reward_fun=self.reward_fun)
+            Step = self.env.step(act, reward_fun=self.reward_fun)
+            return np.array([Step.observation.CGM]), Step.reward, Step.done, {}
 
     def _reset(self):
         obs, _, _, _ = self.env.reset()
-        return obs
+        return np.array([obs.CGM])
 
     def _seed(self, seed=None):
         self.np_random, seed1 = seeding.np_random(seed=seed)

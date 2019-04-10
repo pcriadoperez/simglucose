@@ -15,12 +15,14 @@ class Viewer(object):
 
     def initialize(self):
         plt.ion()
-        fig, axes = plt.subplots(4)
+        fig, axes = plt.subplots(6)
 
-        axes[0].set_ylabel('BG (mg/dL)')
+        axes[0].set_ylabel('BGasdf (mg/dL)')
         axes[1].set_ylabel('CHO (g/min)')
         axes[2].set_ylabel('Insulin (U/min)')
         axes[3].set_ylabel('Risk Index')
+        axes[4].set_ylabel('Heart Rate')
+        axes[5].set_ylabel('Activity')
 
         lineBG, = axes[0].plot([], [], label='BG')
         lineCGM, = axes[0].plot([], [], label='CGM')
@@ -29,13 +31,16 @@ class Viewer(object):
         lineLBGI, = axes[3].plot([], [], label='Hypo Risk')
         lineHBGI, = axes[3].plot([], [], label='Hyper Risk')
         lineRI, = axes[3].plot([], [], label='Risk Index')
+        lineHR = axes[4].plot([],[], label= 'HR')
 
-        lines = [lineBG, lineCGM, lineCHO, lineIns, lineLBGI, lineHBGI, lineRI]
+
+        lines = [lineBG, lineCGM, lineCHO, lineIns, lineLBGI, lineHBGI, lineRI, lineHR]
 
         axes[0].set_ylim([70, 180])
         axes[1].set_ylim([-5, 30])
         axes[2].set_ylim([-0.5, 1])
         axes[3].set_ylim([0, 5])
+        axes[4].set_ylim([0,300])
 
         for ax in axes:
             ax.set_xlim(
@@ -56,6 +61,8 @@ class Viewer(object):
         axes[3].xaxis.set_minor_formatter(mdates.DateFormatter('%H:%M\n'))
         axes[3].xaxis.set_major_locator(mdates.DayLocator())
         axes[3].xaxis.set_major_formatter(mdates.DateFormatter('\n%b %d'))
+        
+        # axes[4].axhspan(50, 200, alpha=0.3, color='red', lw=0)
 
         axes[0].set_title(self.patient_name)
 
@@ -113,6 +120,13 @@ class Viewer(object):
         adjust_ylim(self.axes[3], min(data['Risk']), max(data['Risk']))
         adjust_xlim(self.axes[3], data.index[-1], xlabel=True)
 
+        #self.lines[7].set_xdata(data.index.values)
+        #self.lines[7].set_ydata(data['HR'].values)
+        #self.axes[4].draw_artist(self.lines[7])
+        #adjust_xlim(self.axes[4], data.index[-1], xlabel=True)
+        #adjust_ylim(self.axes[4], min(data['HR']), max(data['HR']))
+
+        
         self.update()
 
     def close(self):
