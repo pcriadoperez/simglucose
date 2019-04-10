@@ -4,7 +4,7 @@ from gym.envs.registration import registry, register, make, spec
 # -------------------
 register(
     id='Simglucose-v0',
-    entry_point='gym.envs.custom:T1DSimEnv',
+    entry_point='gym.envs.simglucose:T1DSimEnv',
     kwargs={'patient_name': 'adolescent#002'}
 )
 
