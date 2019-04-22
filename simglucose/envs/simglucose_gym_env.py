@@ -62,7 +62,7 @@ class T1DSimEnv(gym.Env):
 
             return select
 
-    def _step(self, action):
+    def step(self, action):
         # This gym only controls basal insulin
         act = Action(basal=action, bolus=0)
         if self.reward_fun is None:
@@ -72,11 +72,11 @@ class T1DSimEnv(gym.Env):
             Step = self.env.step(act, reward_fun=self.reward_fun)
             return np.array([Step.observation.CGM]), Step.reward, Step.done, {}
 
-    def _reset(self):
+    def reset(self):
         obs, _, _, _ = self.env.reset()
         return np.array([obs.CGM])
 
-    def _seed(self, seed=None):
+    def seed(self, seed=None):
         self.np_random, seed1 = seeding.np_random(seed=seed)
         # Derive a random seed. This gets passed as a uint, but gets
         # checked as an int elsewhere, so we need to keep it below
@@ -85,7 +85,7 @@ class T1DSimEnv(gym.Env):
         seed3 = seeding.hash_seed(seed2 + 1) % 2**31
         return [seed1, seed2, seed3]
 
-    def _render(self, mode='human', close=False):
+    def render(self, mode='human', close=False):
         self.env.render(close=close)
 
     @property
