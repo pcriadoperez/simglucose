@@ -68,7 +68,7 @@
             "hashes": [
                 "sha256:e58e37e0ed559d9816719d809bcfa45b568fb4620edfeb24ec5d2e8d1a017a50"
             ],
-            "version": "==0.9.7"
+            "version": ">=0.9.7"
         },
         "idna": {
             "hashes": [

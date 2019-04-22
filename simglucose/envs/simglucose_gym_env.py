@@ -27,7 +27,7 @@ class T1DSimEnv(gym.Env):
         patient_name must be 'adolescent#001' to 'adolescent#010',
         or 'adult#001' to 'adult#010', or 'child#001' to 'child#010'
         '''
-        seeds = self._seed()
+        seeds = self.seed()
         # have to hard code the patient_name, gym has some interesting
         # error when choosing the patient
         if patient_name is None:
